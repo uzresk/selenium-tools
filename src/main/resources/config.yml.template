@@ -1,0 +1,6 @@
+selenium:
+  baseurl: http://localhost:8080/login/logintop
+  screenshot_path: ./screenshot/
+  wait:
+    timeout_in_seconds: 10
+    sleep_in_millis: 100

@@ -1,0 +1,10 @@
+/target/
+.apt_generated
+/.settings/
+/.classpath
+/.project
+/screenshot
+/driver
+*.class
+*.log
+*.log.*

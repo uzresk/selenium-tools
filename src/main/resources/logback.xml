@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+
+	<logger name="ch.qos.logabck" level="INFO" />
+
+	<property name="CONSOLE_LOG_PATTERN" value="%m%n" />
+
+	<!-- <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}
+		%5p ${PID:- } [%t] %-40.40logger{39} : %m%n" /> -->
+
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<append>false</append>
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+			<!-- <charset>MS932</charset> -->
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path:-.}/selenium.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset>
+			<!--  <charset>MS932</charset> -->
+		</encoder>
+	</appender>
+	<logger name="jp.gr.java_conf.uzresk.selenium.tools" level="INFO">
+		<appender-ref ref="file" />
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+	<root level="INFO">
+	</root>
+</configuration>

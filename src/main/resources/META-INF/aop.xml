@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aspectj>
+  <aspects>
+    <aspect name="jp.gr.java_conf.uzresk.selenium.tools.aop.WebDriverWaitAround" />
+  </aspects>
+</aspectj>
