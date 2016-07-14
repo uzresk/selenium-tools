@@ -1,6 +1,13 @@
 selenium:
-  baseurl: http://localhost:8080/login/logintop
+  mode: remote
+  baseurl: http://192.168.161.217:8080/cims_neo/login/logintop
   screenshot_path: ./screenshot/
   wait:
-    timeout_in_seconds: 10
+    timeout_in_seconds: 30
     sleep_in_millis: 100
+  # please set only mode remote
+  remote:
+    protocol: http
+    host: host
+    port: 4444
+    path: /wd/hub

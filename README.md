@@ -1,7 +1,7 @@
 ## selenium-tools
 
 
-WebDriverWait#until method at runtime to make the acquisition of the time measurement and screen shot.
+WebDriverWait#until method at runtime to make the acquisition of the time measurement and screenshot.
 
 ---
 

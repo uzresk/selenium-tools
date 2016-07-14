@@ -8,6 +8,10 @@ import org.yaml.snakeyaml.Yaml;
 
 public class Config {
 
+  public static String getMode() {
+    return value("selenium.mode");
+  }
+
 	public static String baseUrl() {
 		return value("selenium.baseurl");
 	}
@@ -17,12 +21,27 @@ public class Config {
 	}
 
 	public static int waitTimeoutInSeconds() {
-
 		return intValue("selenium.wait.timeout_in_seconds");
 	}
 
 	public static int waitSleepInMillis() {
 		return intValue("selenium.wait.sleep_in_millis");
+	}
+
+	public static String remoteProtocol() {
+	  return value("selenium.remote.protocol");
+	}
+
+	public static String remoteHost() {
+	  return value("selenium.remote.host");
+	}
+
+	public static int remotePort() {
+	  return intValue("selenium.remote.port");
+	}
+
+	public static String remotePath() {
+	  return value("selenium.remote.path");
 	}
 
 	/*----------------------------------------------------------------------------*/
