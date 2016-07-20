@@ -29,7 +29,7 @@ public class Config {
 	}
 
 	public static int implicitlyWaitSeconds() {
-	    return intValue("implicitly_wait_seconds");
+	    return intValue("selenium.implicitly_wait_seconds");
 	}
 
 	public static String remoteProtocol() {
