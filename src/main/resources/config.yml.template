@@ -5,6 +5,7 @@ selenium:
   wait:
     timeout_in_seconds: 30
     sleep_in_millis: 100
+  implicitly_wait_seconds: 3
   # please set only mode remote
   remote:
     protocol: http

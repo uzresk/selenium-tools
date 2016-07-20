@@ -28,6 +28,10 @@ public class Config {
 		return intValue("selenium.wait.sleep_in_millis");
 	}
 
+	public static int implicitlyWaitSeconds() {
+	    return intValue("implicitly_wait_seconds");
+	}
+
 	public static String remoteProtocol() {
 	  return value("selenium.remote.protocol");
 	}

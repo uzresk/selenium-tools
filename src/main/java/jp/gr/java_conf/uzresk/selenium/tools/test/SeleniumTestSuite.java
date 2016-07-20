@@ -3,6 +3,7 @@ package jp.gr.java_conf.uzresk.selenium.tools.test;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
@@ -46,6 +47,8 @@ public class SeleniumTestSuite {
         } else {
             throw new IllegalArgumentException("mode, please choose local or remote. ");
         }
+
+        driver.manage().timeouts().implicitlyWait(Config.implicitlyWaitSeconds(), TimeUnit.SECONDS);
     }
 
     private static Capabilities getCapabilities() {
