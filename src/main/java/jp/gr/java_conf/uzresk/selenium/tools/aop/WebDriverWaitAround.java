@@ -17,39 +17,48 @@ import jp.gr.java_conf.uzresk.selenium.tools.log.SeleniumToolsLogger;
 @Aspect
 public class WebDriverWaitAround {
 
-	@Around("execution(* until(*))")
-	public Object getExecTime(ProceedingJoinPoint point) throws Throwable {
+    @Around("execution(* until(*))")
+    public Object getExecTime(ProceedingJoinPoint point) throws Throwable {
 
-		long methodStartTime = System.currentTimeMillis();
+        long methodStartTime = System.currentTimeMillis();
 
-		Object result = point.proceed();
+        Object result = point.proceed();
 
-		long execTime = System.currentTimeMillis() - methodStartTime;
+        long execTime = System.currentTimeMillis() - methodStartTime;
 
-		SeleniumToolsLogger.log(getCalledClassMethodName() + "," + execTime);
+        SeleniumToolsLogger.log(getCalledClassMethodName() + "," + execTime);
 
-		WebDriver driver = (WebDriver) getPrivateField(point.getTarget(), "driver");
-		File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(srcFile, new File(Config.screenshotPath() + getCalledClassMethodName() + ".png"));
+        WebDriver driver = (WebDriver) getPrivateField(point.getTarget(), "driver");
+        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(srcFile,
+                new File(Config.screenshotPath() + getCalledClassMethodName() + ".png"));
 
-		return result;
-	}
+        return result;
+    }
 
-	private static String getCalledClassMethodName() {
-		StackTraceElement[] steArray = Thread.currentThread().getStackTrace();
+    private static String getCalledClassMethodName() {
+        StackTraceElement[] steArray = Thread.currentThread().getStackTrace();
 
-		if (steArray.length <= 5) {
-			return "";
-		}
-		StackTraceElement ste = steArray[5];
-		return ste.getFileName().replaceAll(".java", "") + "-" + ste.getMethodName();
-	}
+        int untilMethodAppeardCnt = 0;
+        for (int i = 0; i < steArray.length; i++) {
+            String methodName = steArray[i].getMethodName();
+            if ("until".equals(methodName)) {
+                // FluentWait#untilの次が対象のメソッドになるはず
+                untilMethodAppeardCnt = i + 1;
+                break;
+            }
+        }
 
-	private static Object getPrivateField(Object target_object, String field_name) throws Exception {
-		@SuppressWarnings("rawtypes")
-		Class c = target_object.getClass();
-		Field fld = c.getDeclaredField(field_name);
-		fld.setAccessible(true);
-		return fld.get(target_object);
-	}
+        StackTraceElement ste = steArray[untilMethodAppeardCnt];
+        return ste.getFileName().replaceAll(".java", "") + "-" + ste.getMethodName();
+    }
+
+    private static Object getPrivateField(Object target_object, String field_name)
+            throws Exception {
+        @SuppressWarnings("rawtypes")
+        Class c = target_object.getClass();
+        Field fld = c.getDeclaredField(field_name);
+        fld.setAccessible(true);
+        return fld.get(target_object);
+    }
 }
